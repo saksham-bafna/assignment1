@@ -1,0 +1,217 @@
+---
+title: 'STAT2430: Assignment 1'
+author: "Saksham Bafna- B00897607"
+date: "January 25, 2024"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{=html}
+<!--
+[10 pts=3+2+2+2+1]
+
+Do not change this. but run this cell before working
+on this assignment.
+-->
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load required libraries
+library(tidyverse)
+library(palmerpenguins)
+library(ggplot2)
+library(tinytex)
+```
+
+```{=html}
+<!--
+
+Instructions
+
+For assignment 1, complete the following tasks
+
+* Add your name and today's date up at the top of this file * Install the `palmerpenguins` package, unless you've already installed it, by clicking the yellow message at the top of the editing window, or using the Tools > Install packages... menu
+* Familiarize yourself with the `penguins` dataset in the next section.
+* Draw a plot and refine it twice using the methods from Lesson 5 Making your first plot as directed below
+* Before knitting this file, make sure for each figure to:
+-describe the figure you plan to show, 
+-show your R code for the figure
+-show the output of your R code
+-say a sentence or 2 about each figure (interpretation)
+
+Your report should 
+-->
+```
+
+## Look at the data
+
+Here is a condensed overview of the `penguins` data
+
+```{r}
+str(penguins)
+```
+
+and an overview of the `penguins_raw` supplementary data.
+
+```{r}
+str(penguins_raw)
+```
+
+We will use the penguins dataset.
+
+```{=html}
+<!--
+Read the documentation by searching for palmerpenguins in the "Help" tab.
+-->
+```
+
+![](penguinscompare.jpg)
+
+## New visualization
+
+### Step 1 (3 pts)
+
+```{=html}
+<!--
+
+q1.1
+
+Write a R code (1 line) that print the names of the columns of the penguins dataset. [0.5 pts]
+
+-->
+```
+
+```{r}
+names(penguins)
+```
+
+```{=html}
+<!--
+
+q1.2
+
+Create a scatterplot of bill length (on the x axis) and bill depth (on the y axis).  Make the simplest plot you can, using just `ggplot`, `aes` and `geom_point`. [1.5 pts]
+
+-->
+```
+
+```{r}
+penguins |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+```
+
+```{=html}
+<!--
+q1.3
+
+Write 1 sentence that describes what you see (or do not see)  in your plot [1 pt]
+-->
+```
+
+The plot shows a distribution of all penguins in the data set as a function of their bill length(in mm) and bill depth (in mm) which demonstrates an approximate inverse relationship between the two variables.
+
+### Step 2 (2 pts)
+
+```{=html}
+<!--
+q2.1
+
+Refine your previous plot, adding colour or shape to indicate the species. Just do the minimal change. (2 pts)
+-->
+```
+
+```{r}
+penguins |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point()
+```
+
+```{=html}
+<!--
+
+q2.2
+
+Replace this sentence with a 1 sentence description of the new information revealed by this addition. (1 pt)
+-->
+```
+
+The refined plot shows that bill length(in mm) and bill depth(in mm) vary with species of penguins studied where the Adelie penguins have deeper but shorter bills whereas the Gentoo penguins have longer but shallower bills.
+
+### Step 3 (2 pts)
+
+```{=html}
+<!--
+
+q3.1
+
+Refine your plot by adding informative and readable axis labels and a brief title for the plot.
+-->
+```
+
+```{r}
+penguins |> 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point() +
+  labs(
+    title = "Variability of Bill Length and Depth in Penguin Species 
+    Palmer Archipelago, Antarctica ",
+    x = "Bill Length (in mm)",
+    y = "Bill Depth (in mm)", 
+    color = "Species"
+  ) +
+  theme_bw()
+```
+
+The refined plot shows that bill length(in mm) and bill depth(in mm) vary with species of penguins studied where the Adelie penguins have deeper but shorter bills whereas the Gentoo penguins have longer but shallower bills.
+
+## Another comparison
+
+```{=html}
+<!--
+
+q4 (2 pts)
+
+Make any additional plot of your choice to illustrate another aspect of the comparison of penguins morphologies across species 
+-->
+```
+
+```{r}
+penguins |> 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  geom_point() +
+  labs(
+    title = "Variability of Flipper Length and Body Mass in Penguin Species
+    Palmer Archipelago, Antarctica",
+    x = "Flipper Length (in mm)",
+    y = "Body Mass (in grams)",
+    color = "Species"
+  ) +
+  theme_bw()
+```
+
+The above plot shows a positive relationship between flipper length and body mass in penguin species with the Adelie penguins with, on average, the shortest flippers and lowest body mass while the Gentoo penguins have the longest average flipper length and highest body mass. 
+
+```{=html}
+<!--
+
+q5 Knit and submit Rmd+pdf (1 pt)
+
+Knit your work to pdf (click "knit" in the menu just at the top of the editing window).
+
+If knitting does not work, spot the line with an error, fix the error in your Rmd file, then reknit. Iterate this procedure until until there are no errors and knitting finishes.
+
+If knitting to pdf does not work, knit to html, load the html in your web browser and use the print function of your browser to print your html file 'as pdf'.
+
+Once done, upload two files, (one after the other): your Rmd file and the knitted pdf.
+
+DO NOT FORGET TO REPLACE your name and banner id in the header of this file, but do NOT mess up the header!
+
+Pushing your report to github [Unmarked but do it!]
+
+Stage, commit and push your final .Rmd and your .html file to your GitHub repository (as done in W2 task number 3- see instructions on Brightspace>Week 2).
+
+-->
+```
